@@ -1,0 +1,84 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+</head>
+</head>
+<body>
+	<div th:insert="fragments/lib :: headmenu"></div>
+	<div th:insert="fragments/commonui :: menu"></div>
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<H3>WELCOME TO UOM DATA PAGE</H3>
+			</div>
+			<div class="card-body">
+				<a th:href="@{/uom/excel}" class="btn btn-success">EXCEL EXPORT</a>
+				<a th:href="@{/uom/pdf}" class="btn btn-success">PDF EXPORT</a> <a
+					th:href="@{/uom/charts}" class="btn btn-success">GENEARTE
+					PIECHART</a>
+				<table class="table table-hover">
+					<tr class="bg-info text-white text-center">
+						<th>ID</th>
+						<th>TYPE</th>
+						<th>MODEL</th>
+						<th>DESCRIPTION</th>
+						<th colspan="5">OPERATION</th>
+					</tr>
+					<!-- page.getContent() -->
+					<tr th:each="ob:${page.content}">
+						<td th:text="${ob.id}"></td>
+						<td th:text="${ob.uomType}"></td>
+						<td th:text="${ob.uomModel}"></td>
+						<td th:text="${ob.description}"></td>
+						<td>
+						<td><a th:href="@{/uom/delete/{id}(id=${ob.id})}"
+							title="remove"> <img th:src="@{/images/delete.png}"
+								class="btn btn-danger" width="60" height="40" /></a></td>
+						<td><a th:href="@{/uom/edit/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/edit.png}" class="btn btn-success" width="60"
+								height="40" />
+						</a></td>
+						<td><a th:href="@{/uom/excel/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/excel.png}" width="60" height="40" />
+						</a></td>
+						<td><a th:href="@{/uom/pdf/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/pdf.png}" width="60" height="40" />
+						</a></td>
+					</tr>
+				</table>
+			</div>
+			<!-- This is card Footer -->
+			<div th:if="${message!=null}">
+				<div class="card-footer text-white bg-info">
+					<b><span th:text="${message}"></span></b>
+				</div>
+			</div>
+		</div>
+		<br />
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+
+
+				<li th:if="${page.hasPrevious()}" class="page-item"><a
+					class="page-link" th:href="@{/uom/all(page.number-1)}">Previous</a>
+				</li>
+
+
+				<th:block th:each="i:${#numbers.sequence(0,page.totalPages-1)}">
+					<li class="page-item"><a class="page-link"
+						th:href="@{/uom/all(page=${i})}">[[${i+1}]]</a></li>
+				</th:block>
+
+				<li th:if="${page.hasNext()}" class="page-item"><a
+					class="page-link" th:href="@{/uom/all(page.number+1)}">Next</a></li>
+			</ul>
+		</nav>
+	</div>
+	<script type="text/javascript">
+ $(document).ready(function(){
+	$('a[title="remove"]').on('click',function(){
+		return confirm('Do you want to delete Uom?');
+	});	 
+ });
+</script>
+</body>
+</html>

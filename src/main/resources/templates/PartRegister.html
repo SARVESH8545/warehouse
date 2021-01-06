@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>part</title>
+</head>
+<body>
+	<div th:insert="fragments/lib :: headmenu"></div>
+	<div th:insert="fragments/commonui :: menu"></div>
+	<script type="text/javascript" th:src="@{/js/part.js}"></script>
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<h3>WELCOME TO PART REGISTER PAGE</h3>
+			</div>
+			<div class="card-body">
+				<form id="partForm" th:action="@{/part/save}" method="POST"
+					th:object="${part}">
+					<!-- Row#1 -->
+					<div class="row">
+						<div class="col-4">
+							<label for="partCode">Part Code</label>
+						</div>
+						<div class="col-4">
+							<input type="text" th:field="*{partCode}" class="form-control" />
+						</div>
+						<div class="col-4">
+							<span id="partCodeError"></span>
+						</div>
+					</div>
+					<!-- row#2 -->
+					<div class="row">
+						<div class="col-4">
+							<label for="partWdth">Part Width</label>
+						</div>
+						<div class="col-4">
+							<input type="text" class="form-control" th:field="*{partWdth}" />
+						</div>
+						<div class="col-4">
+							<span id="partWdthError"></span>
+						</div>
+					</div>
+					<!-- row#3 -->
+					<div class="row">
+						<div class="col-4">
+							<label for="partLen">Part Length</label>
+						</div>
+						<div class="col-4">
+							<input type="text" class="form-control" th:field="*{partLen}" />
+						</div>
+						<div class="col-4">
+							<span id="partLenError"></span>
+						</div>
+					</div>
+					<!-- row#4 -->
+					<div class="row">
+						<div class="col-4">
+							<label for="partHgh">Part Height</label>
+						</div>
+						<div class="col-4">
+							<input type="text" class="form-control" th:field="*{partHgh}" />
+						</div>
+						<div class="col-4">
+							<span id="partHghError"></span>
+						</div>
+					</div>
+					<!-- Row#5 -->
+					<div class="row">
+						<div class="col-4">
+							<label for="baseCost">Base Cost</label>
+						</div>
+						<div class="col-4">
+							<input type="text" th:field="*{baseCost}" class="form-control" />
+						</div>
+						<div class="col-4">
+							<span id="baseCostError"></span>
+						</div>
+					</div>
+					<!--Row#6-->
+					<div class="row">
+						<div class="col-4">
+							<label for="baseCurr">Base Currency</label>
+						</div>
+						<div class="col-4">
+							<select th:field="*{baseCurr}" class="form-control">
+								<option value="">-SELECT-</option>
+								<option value="INR">INR</option>
+								<option value="USD">USD</option>
+								<option value="AUS">AUS</option>
+								<option value="ERU">ERU</option>
+							</select>
+						</div>
+						<div class="col-4">
+							<span id="baseCurrError"></span>
+						</div>
+					</div>
+					<!--row#7-->
+					<div class="row">
+						<div class="col-4">
+							<label>Uom</label>
+						</div>
+						<div class="col-4">
+							<select th:field="*{uom.id}" id="uom"class="form-control">
+								<option value="">-SELECT-</option>
+								<option th:each="u:${uoms}" th:value="${u.key}"
+									th:text="${u.value}"></option>
+							</select>
+						</div>
+						<div class="col-4">
+							<span id="uomError"></span>
+						</div>
+					</div>
+
+					<!--Row#8-->
+					<div class="row">
+						<div class="col-4">
+							<label>Description</label>
+						</div>
+						<div class="col-4">
+							<textarea th:field="*{description}" class="form-control"></textarea>
+						</div>
+						<div class="col-4">
+							<span id="descriptionError"></span>
+						</div>
+					</div>
+
+					<input type="submit" class="btn btn-success" value="Create Part">
+
+				</form>
+			</div>
+			<!-- CARD BODY END -->
+
+			<!-- Card Footer Section -->
+			<div th:if="${message!=null}">
+				<div class="card-footer bg-info text-white text-center">
+					<b><span th:text="${message}"></span></b>
+				</div>
+			</div>
+		</div>
+		<!-- CARD END -->
+
+	</div>
+	<!-- CONTAINER END -->
+</body>
+</html>

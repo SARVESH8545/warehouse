@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:insert="fragments/lib :: headmenu"></div>
+	<div th:insert="fragments/commonui :: menu"></div>
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<h3>ORDER METHOD DATA PAGE</h3>
+			</div>
+			<div class="card-body">
+				<a th:href="@{/ordermethod/excel}" class="btn btn-success">EXCEL
+					EXPORT</a> <a th:href="@{/ordermethod/pdf}" class="btn btn-success">EXPORT
+					PDF</a> <a th:href="@{/ordermethod/charts}" class="btn btn-success">GENERATE
+					PIE CHARTS</a>
+				<table class="table table-hover">
+					<tr class="bg-info text-white text-center">
+						<th>ID</th>
+						<th>MODE</th>
+						<th>CODE</th>
+						<th>TYPE</th>
+						<th>ACCEPT</th>
+						<th>DESCRIPTION</th>
+						<th colspan="4">OPERATION</th>
+					</tr>
+					<tr th:each="ob:${page.content}">
+						<td th:text="${ob.id}"></td>
+						<td th:text="${ob.orderMode}"></td>
+						<td th:text="${ob.orderCode}"></td>
+						<td th:text="${ob.orderType}"></td>
+						<td th:text="${ob.orderAcpt}"></td>
+						<td th:text="${ob.description}"></td>
+						<td><a th:href="@{/ordermethod/delete/{id}(id=${ob.id})}" title="remove">
+								<img th:src="@{/images/delete.png}" class="btn btn-danger"
+								width="60" height="40" />
+						</a></td>
+						<td><a th:href="@{/ordermethod/edit/{id}(id=${ob.id})}">
+								<img th:src="@{/images/edit.png}" class="btn btn-success"
+								width="60" height="40" />
+						</a></td>
+						<td><a th:href="@{/ordermethod/excel/{id}(id=${ob.id})}">
+								<img th:src="@{/images/excel.png}" width="60" height="40">
+						</a></td>
+						<td><a th:href="@{/ordermethod/pdf/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/pdf.png}" width="60" height="40">
+						</a></td>
+
+					</tr>
+				</table>
+			</div>
+			<!-- This is card Footer -->
+			<div th:if="${message!=null}">
+				<div class="card-footer text-white bg-info">
+					<b><span th:text="${message}"></span></b>
+				</div>
+			</div>
+
+		</div>
+		<br />
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+
+
+				<li th:if="${page.hasPrevious()}" class="page-item"><a
+					class="page-link" th:href="@{/ordermethod/all(page.number-1)}">Previous</a>
+				</li>
+
+
+				<th:block th:each="i:${#numbers.sequence(0,page.totalPages-1)}">
+					<li class="page-item"><a class="page-link"
+						th:href="@{/ordermethod/all(page=${i})}">[[${i+1}]]</a></li>
+				</th:block>
+
+				<li th:if="${page.hasNext()}" class="page-item"><a
+					class="page-link" th:href="@{/ordermethod/all(page.number+1)}">Next</a></li>
+			</ul>
+		</nav>
+	</div>
+	<script type="text/javascript">
+ $(document).ready(function(){
+	$('a[title="remove"]').on('click',function(){
+		return confirm('Do you want to delete OrderMethod?');
+	});	 
+ });
+</script>	
+</body>
+</html>

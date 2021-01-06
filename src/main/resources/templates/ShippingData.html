@@ -1,0 +1,86 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+</head>
+</head>
+<body>
+	<div th:insert="fragments/lib :: headmenu"></div>
+	<div th:insert="fragments/commonui :: menu"></div>
+		<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<H3>WELCOME TO SHIPPING DATA PAGE</H3>
+			</div>
+			<div class="card-body">
+				<a th:href="@{/shipping/excel}" class="btn btn-success">EXCEL EXPORT</a>
+				<a th:href="@{/shipping/pdf}" class="btn btn-success">PDF EXPORT</a>
+				 <a th:href="@{/shipping/charts}" class="btn btn-success">GENEARTE
+					PIECHART</a>
+				<table class="table table-hover">
+					<tr class="bg-info text-white text-center">
+						<th>ID</th>
+						<th>CODE</th>
+						<th>SRNUMBER</th>
+						<th>CRNUMBER</th>
+						<th>CDETAILS</th>
+						<th>BTADDRESS</th>
+						<th>STADDRESS</th>
+						<th>DESCRIPTION</th>
+						<th colspan="5">OPERATION</th>
+					</tr>
+					<!-- page.getContent() -->
+					<tr th:each="ob:${page.content}">
+						<td th:text="${ob.id}"></td>
+						<td th:text="${ob.shippingCode}"></td>
+						<td th:text="${ob.shippingRefNum}"></td>
+						<td th:text="${ob.courierRefNum}"></td>
+						<td th:text="${ob.contactDtls}"></td>
+						<td th:text="${ob.billToAddress}"></td>
+						<td th:text="${ob.shipToAddress}"></td>
+						<td th:text="${ob.description}"></td>
+						<td>
+						<td><a th:href="@{/shipping/delete/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/delete.png}" class="btn btn-danger" width="60"
+								height="40" /></a></td>
+						<td><a th:href="@{/shipping/edit/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/edit.png}" class="btn btn-success" width="60"
+								height="40" />
+						</a></td>
+						<td><a th:href="@{/shipping/excel/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/excel.png}" width="60" height="40" />
+						</a></td>
+						<td><a th:href="@{/shipping/pdf/{id}(id=${ob.id})}"> <img
+								th:src="@{/images/pdf.png}" width="60" height="40" />
+						</a></td>
+					</tr>
+				</table>
+			</div>
+			<!-- This is card Footer -->
+			<div th:if="${message!=null}">
+				<div class="card-footer text-white bg-info">
+					<b><span th:text="${message}"></span></b>
+				</div>
+			</div>
+		</div>
+		 <br />
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+
+
+				<li th:if="${page.hasPrevious()}" class="page-item"><a
+					class="page-link" th:href="@{/shipping/all(page.number-1)}">Previous</a>
+				</li>
+
+
+				<th:block th:each="i:${#numbers.sequence(0,page.totalPages-1)}">
+					<li class="page-item"><a class="page-link"
+						th:href="@{/shipping/all(page=${i})}">[[${i+1}]]</a></li>
+				</th:block>
+
+				<li th:if="${page.hasNext()}" class="page-item"><a
+					class="page-link" th:href="@{/shipping/all(page.number+1)}">Next</a></li>
+			</ul>
+		</nav>
+	</div>
+
+</body>
+</html>

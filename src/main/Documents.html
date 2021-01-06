@@ -1,0 +1,18 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>WELCOME TO DOCUMENTS PAGE</h3>
+<form th:action="@{/documents/save}" method="post" enctype="multipart/form-data">
+<pre>
+	ID  : <input type="text" name="fileId"/>
+	FILE: <input type="file" name="fileOb"/>
+	<input type="submit" value="Upload"/>
+</pre>
+</form>
+</body>
+</html>

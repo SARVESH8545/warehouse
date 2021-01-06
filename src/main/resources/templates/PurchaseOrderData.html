@@ -1,0 +1,111 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+</head>
+<body>
+	<div th:insert="fragments/lib :: headmenu"></div>
+	<div th:insert="fragments/commonui :: menu"></div>
+		<div class="container">
+		<div class="card">
+			<div class="card-header bg-primary text-white text-center">
+				<H3>WELCOME TO PURCHASE ORDER DATA PAGE</H3>
+			</div>
+			<!-- header end -->
+
+			<div class="card-body">
+				<a th:href="@{/puechaseorder/excel}" class="btn btn-success">EXCEL
+					EXPORT</a> <a th:href="@{/purchaseorder/pdf}" class="btn btn-success">PDF
+					EXPORT</a> <a th:href="@{/purchaseorder/charts}"
+					class="btn btn-success">GENEARTE PIECHART</a>
+				<table class="table table-hover ">
+					<tr class="bg-info text-white text-center">
+						<th>ID</th>
+						<th>ORDER CODE</th>
+						<th>SHIPMENT CODE</th>
+						<th>VENDOR</th>
+						<th>REFERENCE NUMBER</th>
+						<!--<th>QUALITY CHECK</th>-->
+						<!--<th>STATUS</th>
+						<th>DESCRIPTION</th>-->
+						<th colspan="6">OPERATION</th>
+					</tr>
+					<tr th:each="ob:${page.content}">
+						<td th:text="${ob.id}"></td>
+						<td th:text="${ob.orderCode}"></td>
+						<td th:text="${ob.shipmentType.shipmentCode}"></td>
+						<td th:text="${ob.vendor.userCode}"></td>
+						<td th:text="${ob.refNumber}"></td>
+						<!--<td th:text="${ob.qualityCheck}"></td>-->
+						<!--<td th:text="${ob.status}"></td>
+						<td th:text="${ob.description}"></td>-->
+						<td><a th:href="@{/purchaseorder/delete/{id}(id=${ob.id})}"
+							title="remove"> <img th:src="@{/images/delete.png}"
+								class="btn btn-danger" width="60" height="40" />
+						</a></td>
+						<td><a th:href="@{/purchaseorder/edit/{id}(id=${ob.id})}">
+								<img th:src="@{/images/edit.png}" class="btn btn-success"
+								width="60" height="40" />
+						</a></td>
+						<td><a th:href="@{/purchaseorder/excel/{id}(id=${ob.id})}">
+								<img th:src="@{/images/excel.png}" width="60" height="40">
+						</a></td>
+
+						<td><a th:href="@{/purchaseorder/pdf/{id}(id=${ob.id})}">
+								<img th:src="@{/images/pdf.png}" width="60" height="40" />
+						</a></td>
+						<td><a th:href="@{/purchaseorder/dtls/{id}(id=${ob.id})}"
+							class="btn btn-info">PARTS</a></td>
+						<td>
+							<div th:switch="${ob.status}">
+								<span th:case="${'ORDERED'}"> <a
+									th:href="@{/purchaseorder/invoiceOrder/{id}(id=${ob.id})}"
+									class="btn btn-info">GENERATE INVOICE</a>
+								</span> <span th:case="${'INVOICED'}"> <a
+									th:href="@{/purchaseorder/printInvoice/{id}(id=${ob.id})}"
+									class="btn btn-success">PRINT INVOICE</a>
+								</span> <span th:case="${'PICKING'}"> <b>UNDER SELECTION</b>
+								</span> <span th:case="${'OPEN'}"> <b>ITEMS TO BE ADDED</b>
+								</span>
+							</div>
+						</td>
+
+					</tr>
+				</table>
+			</div>
+
+			<!-- This is card Footer -->
+			<div th:if="${message!=null}">
+				<div class="card-footer text-white bg-info">
+					<b><span th:text="${message}"></span></b>
+				</div>
+			</div>
+		</div>
+		<br />
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+
+
+				<li th:if="${page.hasPrevious()}" class="page-item"><a
+					class="page-link" th:href="@{/purchaseorder/all(page.number-1)}">Previous</a>
+				</li>
+
+
+				<th:block th:each="i:${#numbers.sequence(0,page.totalPages-1)}">
+					<li class="page-item"><a class="page-link"
+						th:href="@{/purchaseorder/all(page=${i})}">[[${i+1}]]</a></li>
+				</th:block>
+
+				<li th:if="${page.hasNext()}" class="page-item"><a
+					class="page-link" th:href="@{/purchaseorder/all(page.number+1)}">Next</a></li>
+			</ul>
+		</nav>
+		<!-- card end -->
+	</div>
+	<script type="text/javascript">
+ $(document).ready(function(){
+	$('a[title="remove"]').on('click',function(){
+		return confirm('Do you want to delete PurchaseOrder ?');
+	});	 
+ });
+</script>
+</body>
+</html>

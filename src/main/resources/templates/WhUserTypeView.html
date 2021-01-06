@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>WH-USER-TYPE VIEW PAGE</h3>
+	<table border="1">
+		<tr>
+			<th>ID</th>
+			<td th:text="${ob.id}"></td>
+		</tr>
+		<tr>
+			<th>User Type</th>
+			<td th:text="${ob.userType}"></td>
+		</tr>
+		<tr>
+			<th>User Code</th>
+			<td th:text="${ob.userCode}"></td>
+		</tr>
+		<tr>
+			<th>User For</th>
+			<td th:text="${ob.userFor}"></td>
+		</tr>
+		<tr>
+			<th>User Email</th>
+			<td th:text="${ob.userMail}"></td>
+		</tr>
+		<tr>
+			<th>User Contact</th>
+			<td th:text="${ob.userContact}"></td>
+		</tr>
+		<tr>
+			<th>User ID Type</th>
+			<td th:text="${ob.userIdType}"></td>
+		</tr>
+		<tr>
+			<th>ID Number</th>
+			<td th:text="${ob.idNumber}"></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:insert="fragments/lib :: headmenu"></div>
+	<div th:insert="fragments/commonui :: menu"></div>
+	<div class="container">
+		<div class="card-header bg-primary text-white text-center">
+			<H3>WELCOME TO SHIPMENT TYPE CHARTS</H3>
+		</div>
+		<div class="card-body">
+			<img th:src="@{/whusertypeA.jpg}" /> <img
+				th:src="@{/whusertypeB.jpg}" />
+		</div>
+	</div>
+</body>
+</html>
